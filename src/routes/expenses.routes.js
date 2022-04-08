@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const router = Router();
-//const pool = require('../db');
+const pool = require('../db');
 const { getAllExpenses, getExpense, createExpense, editExpense, deleteExpense } = require('../controllers/expenses.controller');
 
 router.get('/expenses', getAllExpenses);

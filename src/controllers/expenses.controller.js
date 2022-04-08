@@ -37,9 +37,9 @@ const createExpense = async (req, res) => {
 
 const editExpense = async (req, res) => {
   const { id } = req.params;
-  const { concept, category_id, amount } = req.body;
+  const { concept, category_id, amount, expensetype } = req.body;
   try {
-    const result = await pool.query('update expense set concept=$1, category_id=$2, amount=$3 where id=$4 returning *', [concept, category_id, amount, id]);
+    const result = await pool.query('update expense set concept=$1, category_id=$2, amount=$3, expensetype=$4 where id=$5 returning *', [concept, category_id, amount, expensetype, id]);
     if (result.rowCount === 0) {
       return res.status(404).json({
         message: "Expense not found",
