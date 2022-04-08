@@ -9,10 +9,10 @@ export default function CurrentBalance() {
     const response = await fetch('http://localhost:4000/expenses')
     const data = await response.json()
     setExpenses(data)
-    for(let i = 0; i < data.length; i++){
-      console.log(data[i].amount)
-      console.log(currentBalance)
-      setCurrentBalance(data[i].amount)
+    for(let i = 0; i < expenses.length; i++){
+      console.log(expenses[i].amount)
+      let value = currentBalance + data[i].amount
+      setCurrentBalance(value)
     }
     console.log(currentBalance)
   }
