@@ -1,4 +1,16 @@
-import {Card,CardContent,Typography,Grid,TextField,Button,CircularProgress} from "@mui/material";
+import {
+  Card,
+  CardContent,
+  Typography,
+  Grid,
+  TextField,
+  Button,
+  CircularProgress,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+} from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -9,8 +21,10 @@ export default function ExpenseForm() {
     amount: 0,
     expensetype: 0,
   });
+  const [categories, setCategories] = useState([]);  
   const [loading, setLoading] = useState(false);
   const [editing, setEditing] = useState(false);
+  const [types, settypes] = useState([1,-1]);
 
   const handleChange = (e) => {
     setExpense({ ...expense, [e.target.name]: e.target.value });
@@ -38,7 +52,7 @@ export default function ExpenseForm() {
       });
     }
     setLoading(false);
-    navigate("/");
+    navigate("/expenses");
   };
 
   const loadExpense = async (id) => {
@@ -50,12 +64,20 @@ export default function ExpenseForm() {
       amount: data.amount,
       expensetype: data.expensetype
     });
+    loadCategories();
     setEditing(true);
+  };
+  const loadCategories = async () => {
+    const res = await fetch("http://localhost:4000/categories");
+    const data = await res.json();
+    setCategories(data);
   };
 
   useEffect(() => {
     if (params.id) {
       loadExpense(params.id);
+    }else{
+      loadCategories();
     }
   }, [params.id]);  //este segundo parámetro es para que no se ejecute la función cada vez que se renderice el componente, sino que se ejecute solo cuando el parámetro cambie
 
@@ -64,11 +86,13 @@ export default function ExpenseForm() {
       container
       direction="column"
       alignItems="center"
-      justifyContent="center">
+      justifyContent="center"
+    >
       <Grid xs={3}>
         <Card
           sx={{ mt: 5 }}
-          style={{ backgroundColor: "#1e272e", padding: "1 rem" }}>
+          style={{ backgroundColor: "#1e272e", padding: "1 rem" }}
+        >
           <Typography variant="5" textAlign="center" color="white">
             {editing ? "Edit expense" : "Create Expense"}
           </Typography>
@@ -82,16 +106,32 @@ export default function ExpenseForm() {
                 value={expense.concept}
                 onChange={handleChange}
                 inputProps={{ style: { color: "white" } }}
-                InputLabelProps={{ style: { color: "white" } }}/>
-              <TextField
-                variant="filled"
-                label="Category"
-                sx={{ display: "block", margin: ".5rem 0" }}
-                name="category_id"
-                value={expense.category_id}
-                onChange={handleChange}
-                inputProps={{ style: { color: "white" } }}
-                InputLabelProps={{ style: { color: "white" } }}/>
+                InputLabelProps={{ style: { color: "white" } }}
+              />
+              <FormControl fullWidth>
+                <InputLabel
+                  id="demo-simple-select-label"
+                  sx={{ display: "block", margin: ".5rem 0" }}
+                >
+                  Category
+                </InputLabel>
+
+                <Select
+                  id="demo-simple-select"
+                  name="category_id"
+                  value={expense.category_id}
+                  label="Category"
+                  inputProps={{ style: { color: "white" } }}
+                  InputLabelProps={{ style: { color: "white" } }}
+                  onChange={handleChange}
+                >
+                  {categories.map((category) => (
+                    <MenuItem key={category.id} value={category.id}>
+                      {category.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
               <TextField
                 variant="filled"
                 label="Amount"
@@ -100,7 +140,33 @@ export default function ExpenseForm() {
                 value={expense.amount}
                 onChange={handleChange}
                 inputProps={{ style: { color: "white" } }}
-                InputLabelProps={{ style: { color: "white" } }}/>
+                InputLabelProps={{ style: { color: "white" } }}
+              />
+              <FormControl fullWidth>
+                <InputLabel
+                  id="demo-simple-select-label"
+                  sx={{ display: "block", margin: ".5rem 0" }}
+                >
+                  Type
+                </InputLabel>
+
+                <Select
+                  id="demo-simple-select"
+                  name="expensetype"
+                  value={expense.expensetype}
+                  label="Type"
+                  inputProps={{ style: { color: "white" } }}
+                  InputLabelProps={{ style: { color: "white" } }}
+                  onChange={handleChange}
+                >
+                  {types.map((type) => (
+                    <MenuItem key={type} value={type}>
+                      {type === 1 ? "Income" : "Expense"}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              {/*
               <TextField
                 variant="filled"
                 label="Type"
@@ -110,13 +176,25 @@ export default function ExpenseForm() {
                 onChange={handleChange}
                 inputProps={{ style: { color: "white" } }}
                 InputLabelProps={{ style: { color: "white" } }}
-                disabled={editing}/>
+                disabled={editing}
+              />
+              */}
               <Button
                 variant="contained"
                 color="primary"
                 type="submit"
-                disabled={!expense.concept ||!expense.category_id ||!expense.amount ||!expense.expensetype}>
-                {loading ? (<CircularProgress color="inherit" size={24} />) : ("SAVE")}
+                disabled={
+                  !expense.concept ||
+                  !expense.category_id ||
+                  !expense.amount ||
+                  !expense.expensetype
+                }
+              >
+                {loading ? (
+                  <CircularProgress color="inherit" size={24} />
+                ) : (
+                  "SAVE"
+                )}
               </Button>
             </form>
           </CardContent>

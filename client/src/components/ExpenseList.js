@@ -48,11 +48,12 @@ export default function ExpenseList() {
             }}
           >
             <div style={{ color: "white" }}>
-              <Typography> {expense.concept} </Typography>
-              <Typography> {expense.category_id} </Typography>
-              <Typography> {} </Typography>
-              <Typography> {expense.amount} </Typography>
-              <Typography> {expense.expensetype} </Typography>
+              <Typography> Concept: {expense.concept} </Typography>
+              {categories.map((category) => (
+                <Typography> {category.name} </Typography>
+              ))}
+              <Typography> Amount: {expense.amount} </Typography>
+              <Typography> Type: {expense.expensetype} </Typography>
             </div>
             <div>
               <Button

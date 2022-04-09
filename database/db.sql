@@ -5,8 +5,8 @@ CREATE TABLE expense(
     concept VARCHAR(255),
     category_id INT NOT NULL,
     amount NUMERIC(18,2),
-    expenseDate DATE,
-    expenseType NUMERIC(1),
+    expensedate DATE,
+    expensetype NUMERIC(1),
     CONSTRAINT fk_category FOREIGN KEY(category_id) REFERENCES category(id)
 )
 
