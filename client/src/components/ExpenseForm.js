@@ -125,11 +125,11 @@ export default function ExpenseForm() {
                   InputLabelProps={{ style: { color: "white" } }}
                   onChange={handleChange}
                 >
-                  {categories.map((category) => (
+                  {categories.filter(category => category.id != expense.category_id)
+                  .map(category => (
                     <MenuItem key={category.id} value={category.id}>
                       {category.name}
-                    </MenuItem>
-                  ))}
+                    </MenuItem>))}                    
                 </Select>
               </FormControl>
               <TextField

@@ -50,10 +50,10 @@ export default function ExpenseList() {
             <div style={{ color: "white" }}>
               <Typography> Concept: {expense.concept} </Typography>
               {categories.map((category) => (
-                <Typography> {category.name} </Typography>
+                <Typography> Category: {category.name} </Typography>
               ))}
               <Typography> Amount: {expense.amount} </Typography>
-              <Typography> Type: {expense.expensetype} </Typography>
+              <Typography> Type: {expense.expensetype === "1" ? "Income" : "Expense"} </Typography>
             </div>
             <div>
               <Button
