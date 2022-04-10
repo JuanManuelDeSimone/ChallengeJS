@@ -1,6 +1,9 @@
 import React, { useState, useEffect} from 'react'
 import { Button, Card, CardContent, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import EditIcon from "@mui/icons-material/Edit"
+import Fab from "@mui/material/Fab"
+import DeleteIcon from "@mui/icons-material/Delete"
 
 export default function ExpenseList() {
   
@@ -49,21 +52,28 @@ export default function ExpenseList() {
           >
             <div style={{ color: "white" }}>
               <Typography> Concept: {expense.concept} </Typography>
-              {categories.map((category) => (
-                expense.category_id === category.id &&
-                <Typography> Category: {category.name} </Typography>
-              ))}
+              {categories.map(
+                (category) =>
+                  expense.category_id === category.id && (
+                    <Typography> Category: {category.name} </Typography>
+                  )
+              )}
               <Typography> Amount: {expense.amount} </Typography>
-              <Typography> Type: {expense.expensetype === "1" ? "Income" : "Expense"} </Typography>
+              <Typography>
+                {" "}
+                Type: {expense.expensetype === "1" ? "Income" : "Expense"}{" "}
+              </Typography>
             </div>
             <div>
-              <Button
-                variant="contained"
-                color="inherit"
-                onClick={() => navigate(`/expenses/${expense.id}/edit`)}
-              >
-                Edit
-              </Button>
+              <Fab size="medium" aria-label="edit">
+                <EditIcon
+                  onClick={() => navigate(`/expenses/${expense.id}/edit`)}
+                />
+              </Fab>
+              <Fab size="medium" aria-label="delete">
+                <DeleteIcon onClick={() => handleDelete(expense.id)} />
+              </Fab>
+              {/** 
               <Button
                 variant="contained"
                 color="inherit"
@@ -72,6 +82,7 @@ export default function ExpenseList() {
               >
                 Delete
               </Button>
+               */}
             </div>
           </CardContent>
         </Card>
