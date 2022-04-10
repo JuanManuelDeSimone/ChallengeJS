@@ -73,16 +73,6 @@ export default function ExpenseList() {
               <Fab size="medium" aria-label="delete">
                 <DeleteIcon onClick={() => handleDelete(expense.id)} />
               </Fab>
-              {/** 
-              <Button
-                variant="contained"
-                color="inherit"
-                onClick={() => handleDelete(expense.id)}
-                style={{ marginLeft: ".5rem" }}
-              >
-                Delete
-              </Button>
-               */}
             </div>
           </CardContent>
         </Card>

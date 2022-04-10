@@ -8,11 +8,11 @@ export default function CurrentBalance() {
   const loadExpenses = async () => {
     const response = await fetch('http://localhost:4000/expenses')
     const data = await response.json()
-    setExpenses(data)
-    console.log(data)
+    const list = data.filter((expense,index) => index < 10)           
+    setExpenses(list)
+    console.log(list)
     
     const price = data.map((balances) => parseInt(balances.amount) * parseInt(balances.expensetype))
-    console.log(price)
     const sum = price.reduce((a, b) =>  parseInt(a) + parseInt(b), 0);
     setCurBalance(sum);
     

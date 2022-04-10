@@ -2,7 +2,7 @@ const pool = require('../db');
 
 const getAllExpenses = async (req, res) => {
   try {
-    const allExpenses = await pool.query('select * from expense');
+    const allExpenses = await pool.query('select * from expense order by id desc');
     res.json(allExpenses.rows);
   } catch (error) {
     console.log(error);
