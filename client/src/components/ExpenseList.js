@@ -50,6 +50,7 @@ export default function ExpenseList() {
             <div style={{ color: "white" }}>
               <Typography> Concept: {expense.concept} </Typography>
               {categories.map((category) => (
+                expense.category_id === category.id &&
                 <Typography> Category: {category.name} </Typography>
               ))}
               <Typography> Amount: {expense.amount} </Typography>
