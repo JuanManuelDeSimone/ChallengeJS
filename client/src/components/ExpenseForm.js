@@ -128,7 +128,7 @@ export default function ExpenseForm() {
                   {categories.map((category) => (
                     <MenuItem key={category.id} value={category.id}>
                       {category.name}
-                    </MenuItem>  
+                    </MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -157,6 +157,7 @@ export default function ExpenseForm() {
                   label="Type"
                   inputProps={{ style: { color: "white" } }}
                   InputLabelProps={{ style: { color: "white" } }}
+                  disabled={editing}
                   onChange={handleChange}
                 >
                   {types.map((type) => (
