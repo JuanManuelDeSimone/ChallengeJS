@@ -8,7 +8,15 @@ const getAllExpenses = async (req, res) => {
     console.log(error);
   }
 }
-
+const getExpenseByCategory = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const expense = await pool.query('select * from expense where category_id = $1', [id]);
+    res.json(expense.rows);
+  } catch (error) {
+    console.log(error);
+  } 
+}
 const getExpense = async (req, res) => {
   const { id } = req.params;
   try {
@@ -72,5 +80,6 @@ module.exports = {
   getExpense,
   createExpense,
   editExpense,
-  deleteExpense
-}
+  deleteExpense,
+  getExpenseByCategory
+};

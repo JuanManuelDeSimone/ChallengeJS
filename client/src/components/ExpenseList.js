@@ -1,6 +1,5 @@
 import React, { useState, useEffect} from 'react'
 import {
-  Button,
   Card,
   CardContent,
   Typography,
@@ -17,8 +16,8 @@ import DeleteIcon from "@mui/icons-material/Delete"
 export default function ExpenseList() {
   
   const [expenses, setExpenses] = useState([])
-  const [categories, setCategories] = useState([])
   const [category, setCategory] = useState(0)
+  const [categories, setCategories] = useState([])
   const [first, setFirst] = useState(true)
   const navigate = useNavigate()
 
@@ -26,14 +25,20 @@ export default function ExpenseList() {
     const response = await fetch('http://localhost:4000/expenses');
     const data = await response.json()
     setExpenses(data)
-    if(first){
+    //if(first){
     const response2 = await fetch('http://localhost:4000/categories');
     const data2 = await response2.json()
     setCategories(data2)
     setFirst(false)
-    }
+    //}
   }
-   
+  
+  const loadExpensesbyCategory = async (id)=> { 
+    const response = await fetch(`http://localhost:4000/expenses/expensesbycategory/${id}`);
+    const data = await response.json()
+    setExpenses(data)
+  }  
+
   const handleDelete = async (id) =>{
     try {
       await fetch(`http://localhost:4000/expenses/${id}`, {
@@ -43,6 +48,15 @@ export default function ExpenseList() {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  const handlechange = (e) => {
+    if(e.target.value !== 0){
+      loadExpensesbyCategory(e.target.value);
+    }else{
+      loadExpenses();
+    }
+    setCategory(e.target.value);    
   }
 
   useEffect(() => {
@@ -64,13 +78,13 @@ export default function ExpenseList() {
 
           <Select
             id="demo-simple-select"
-            //name="id"
-            //value={id}
+            name="id"
+            value={category}
             label="Category"
             inputProps={{ style: { color: "white" } }}
             InputLabelProps={{ style: { color: "white" } }}
             autoWidth
-            //onChange={setCategory(value)}
+            onChange={handlechange}
           >
             {
               <MenuItem key={0} value={0}>
