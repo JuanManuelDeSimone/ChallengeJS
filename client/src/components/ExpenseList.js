@@ -8,6 +8,13 @@ import {
   FormControl,
   Select
 } from "@mui/material";
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from "@mui/material/Paper";
 import { useNavigate } from 'react-router-dom'
 import EditIcon from "@mui/icons-material/Edit"
 import Fab from "@mui/material/Fab"
@@ -99,6 +106,57 @@ export default function ExpenseList() {
           </Select>
         </FormControl>
       </h1>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead
+            style={{ marginBottom: ".7rem", backgroundColor: "#1e272e" }}
+          >
+            <TableRow>
+              <TableCell>Concept</TableCell>
+              <TableCell align="left">Category</TableCell>
+              <TableCell align="left">Amount</TableCell>
+              <TableCell align="left">Type</TableCell>
+              <TableCell align="left">Edit</TableCell>
+              <TableCell align="left">Delete</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {expenses.map((expense) => (
+              <TableRow
+                key={expense.id}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell component="th" scope="row" align="left">
+                  {expense.concept}
+                </TableCell>
+                {categories.map(
+                  (category) => (
+                    expense.category_id === category.id && 
+                      <TableCell align="left"> {category.name} </TableCell>
+                  )
+                )}
+                <TableCell align="left">{expense.amount}</TableCell>
+                <TableCell align="left">
+                  {expense.expensetype === "1" ? "Income" : "Expense"}
+                </TableCell>
+                <TableCell>
+                  <Fab size="medium" aria-label="edit">
+                    <EditIcon
+                      onClick={() => navigate(`/expenses/${expense.id}/edit`)}
+                    />
+                  </Fab>
+                </TableCell>
+                <TableCell>
+                  <Fab size="medium" aria-label="delete">
+                    <DeleteIcon onClick={() => handleDelete(expense.id)} />
+                  </Fab>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      {/** 
       {expenses.map((expense) => (
         <Card
           style={{ marginBottom: ".7rem", backgroundColor: "#1e272e" }}
@@ -120,8 +178,7 @@ export default function ExpenseList() {
               )}
               <Typography> Amount: {expense.amount} </Typography>
               <Typography>
-                {" "}
-                Type: {expense.expensetype === "1" ? "Income" : "Expense"}{" "}
+                Type: {expense.expensetype === "1" ? "Income" : "Expense"}
               </Typography>
             </div>
             <div>
@@ -137,6 +194,7 @@ export default function ExpenseList() {
           </CardContent>
         </Card>
       ))}
+       */}
     </>
   );
 }
