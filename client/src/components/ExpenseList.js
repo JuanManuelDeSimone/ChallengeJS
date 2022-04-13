@@ -156,45 +156,6 @@ export default function ExpenseList() {
           </TableBody>
         </Table>
       </TableContainer>
-      {/** 
-      {expenses.map((expense) => (
-        <Card
-          style={{ marginBottom: ".7rem", backgroundColor: "#1e272e" }}
-          key={expense.id}
-        >
-          <CardContent
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
-            <div style={{ color: "white" }}>
-              <Typography> Concept: {expense.concept} </Typography>
-              {categories.map(
-                (category) =>
-                  expense.category_id === category.id && (
-                    <Typography> Category: {category.name} </Typography>
-                  )
-              )}
-              <Typography> Amount: {expense.amount} </Typography>
-              <Typography>
-                Type: {expense.expensetype === "1" ? "Income" : "Expense"}
-              </Typography>
-            </div>
-            <div>
-              <Fab size="medium" aria-label="edit">
-                <EditIcon
-                  onClick={() => navigate(`/expenses/${expense.id}/edit`)}
-                />
-              </Fab>
-              <Fab size="medium" aria-label="delete">
-                <DeleteIcon onClick={() => handleDelete(expense.id)} />
-              </Fab>
-            </div>
-          </CardContent>
-        </Card>
-      ))}
-       */}
     </>
   );
 }
