@@ -10,7 +10,6 @@ export default function CurrentBalance() {
     const data = await response.json()
     const list = data.filter((expense,index) => index < 10)           
     setExpenses(list)
-    console.log(list)
     
     const price = data.map((balances) => parseInt(balances.amount) * parseInt(balances.expensetype))
     const sum = price.reduce((a, b) =>  parseInt(a) + parseInt(b), 0);

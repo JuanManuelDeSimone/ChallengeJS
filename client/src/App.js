@@ -5,8 +5,11 @@ import NavBar from './components/NavBar'
 import { Container } from '@mui/material'
 import React from 'react'
 import CurrentBalance from './components/CurrentBalance'
+import LoginButton  from './components/LoginButton'
+import Profile from './components/Profile'
 
 export default function App() {
+
   return (
     <BrowserRouter>
       <NavBar />
@@ -18,6 +21,8 @@ export default function App() {
           <Route path="/expenses/:id/edit" element={<ExpenseForm />} />
         </Routes>
       </Container>
+      <LoginButton />
+      <Profile />
     </BrowserRouter>
   );
 }
