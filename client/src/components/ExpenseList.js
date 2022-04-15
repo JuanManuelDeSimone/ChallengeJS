@@ -3,10 +3,12 @@ import {
   InputLabel,
   MenuItem,
   FormControl,
-  Select
+  Select,
+  Icon,
 } from "@mui/material";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
+
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
@@ -16,6 +18,7 @@ import { useNavigate } from 'react-router-dom'
 import EditIcon from "@mui/icons-material/Edit"
 import Fab from "@mui/material/Fab"
 import DeleteIcon from "@mui/icons-material/Delete"
+
 
 export default function ExpenseList() {
   
@@ -79,7 +82,6 @@ export default function ExpenseList() {
           >
             Category
           </InputLabel>
-
           <Select
             id="demo-simple-select"
             name="id"
@@ -101,6 +103,12 @@ export default function ExpenseList() {
               </MenuItem>
             ))}
           </Select>
+          <Icon
+            sx={{ fontSize: 50, flexGrow: 1 }}
+            onClick={() => navigate("/expenses/new")}
+          >
+            add_circle
+          </Icon>
         </FormControl>
       </h1>
       <TableContainer component={Paper}>
@@ -127,10 +135,10 @@ export default function ExpenseList() {
                   {expense.concept}
                 </TableCell>
                 {categories.map(
-                  (category) => (
-                    expense.category_id === category.id && 
+                  (category) =>
+                    expense.category_id === category.id && (
                       <TableCell align="left"> {category.name} </TableCell>
-                  )
+                    )
                 )}
                 <TableCell align="left">{expense.amount}</TableCell>
                 <TableCell align="left">

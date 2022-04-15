@@ -4,7 +4,6 @@ import {
   Container,
   Toolbar,
   Typography,
-  Icon,
   createSvgIcon
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom"
@@ -42,17 +41,17 @@ export default function NavBar() {
               </Link>
             </Typography>
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
+              <Link
+                to="/categories"
+                style={{ textDecoration: "none", color: "#eee" }}
+              >
+                Categories
+              </Link>
+            </Typography>
+            <Typography variant="h6" sx={{ flexGrow: 1 }}>
               Hola, {user.name}
             </Typography>
-            <Icon
-              sx={{ fontSize: 50 }}
-              onClick={() => navigate("/expenses/new")}
-            >
-              add_circle
-            </Icon>
-            <button onClick={()=> logout()}>
-              Logout
-            </button>
+            <button onClick={() => logout()}>Logout</button>
           </Toolbar>
         </Container>
       </AppBar>

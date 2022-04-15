@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import ExpenseForm from './components/ExpenseForm'
+import CategoryForm from './components/CategoryForm'
 import ExpenseList from './components/ExpenseList'
+import CategoryList from './components/CategoryList'
 import NavBar from './components/NavBar'
 import { Container } from '@mui/material'
 import React from 'react'
@@ -27,6 +29,9 @@ export default function App() {
             <Route path="/expenses" element={<ExpenseList />} />
             <Route path="/expenses/new" element={<ExpenseForm />} />
             <Route path="/expenses/:id/edit" element={<ExpenseForm />} />
+            <Route path="/categories" element={<CategoryList />} />
+            <Route path="/categories/:id/edit" element={<CategoryForm />} />
+            <Route path="/categories/new" element={<CategoryForm />} />
           </Routes>
         </Container>
       </BrowserRouter>
