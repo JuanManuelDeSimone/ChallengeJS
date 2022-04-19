@@ -13,18 +13,22 @@ import {
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useAuth0 } from '@auth0/auth0-react'
 
 export default function ExpenseForm() {
+  const { user} = useAuth0();
   const [expense, setExpense] = useState({
     concept: "",
     category_id: 0,
     amount: 0,
     expensetype: 0,
+    usermail: user.email
   });
   const [categories, setCategories] = useState([]);  
   const [loading, setLoading] = useState(false);
   const [editing, setEditing] = useState(false);
   const [types, settypes] = useState([1,-1]);
+
 
   const handleChange = (e) => {
     setExpense({ ...expense, [e.target.name]: e.target.value });
@@ -37,7 +41,7 @@ export default function ExpenseForm() {
     e.preventDefault();
     setLoading(true);
     if (editing) {
-      await fetch(`http://localhost:4000/expenses/${params.id}`, {
+      await fetch(`http://localhost:4000/expenses/${params.id}/edit`, {
         method: "PUT",
         headers: {
           "content-type": "application/json",
@@ -62,7 +66,8 @@ export default function ExpenseForm() {
       concept: data.concept,
       category_id: data.category_id,
       amount: data.amount,
-      expensetype: data.expensetype
+      expensetype: data.expensetype,
+      usermail: data.usermail
     });
     loadCategories();
     setEditing(true);
@@ -167,19 +172,6 @@ export default function ExpenseForm() {
                   ))}
                 </Select>
               </FormControl>
-              {/*
-              <TextField
-                variant="filled"
-                label="Type"
-                sx={{ display: "block", margin: ".5rem 0" }}
-                name="expensetype"
-                value={expense.expensetype}
-                onChange={handleChange}
-                inputProps={{ style: { color: "white" } }}
-                InputLabelProps={{ style: { color: "white" } }}
-                disabled={editing}
-              />
-              */}
               <Button
                 variant="contained"
                 color="primary"

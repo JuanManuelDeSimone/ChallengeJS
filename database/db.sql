@@ -7,6 +7,7 @@ CREATE TABLE expense(
     amount NUMERIC(18,2),
     expensedate DATE,
     expensetype NUMERIC(1),
+    usermail VARCHAR(255),
     CONSTRAINT fk_category FOREIGN KEY(category_id) REFERENCES category(id)
 )
 

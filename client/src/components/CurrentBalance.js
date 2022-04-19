@@ -1,12 +1,15 @@
 import { Card, Typography } from '@mui/material'
 import React, { useState, useEffect } from 'react'
+import { useAuth0 } from '@auth0/auth0-react'
 
 export default function CurrentBalance() {
   const [expenses, setExpenses] = useState([])
   const [curBalance, setCurBalance] = useState(0)
+  const { user } = useAuth0()
 
   const loadExpenses = async () => {
-    const response = await fetch('http://localhost:4000/expenses')
+    //const response = await fetch('http://localhost:4000/expenses')
+    const response = await fetch(`http://localhost:4000/expenses/all/${user.email}`);
     const data = await response.json()
     const list = data.filter((expense,index) => index < 10)           
     setExpenses(list)

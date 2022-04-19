@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { InputLabel, MenuItem, FormControl, Select, Icon } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-
+import '../index.css';
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
@@ -40,17 +40,16 @@ export default function CategoryList() {
 
   return (
     <>
-      <h1>
-        Category List
-        <FormControl sx={{ display: "block", margin: ".5rem 0" }}>
-          <Icon
-            sx={{ fontSize: 50, flexGrow: 1 }}
-            onClick={() => navigate("/categories/new")}
-          >
-            add_circle
-          </Icon>
-        </FormControl>
-      </h1>
+      <div>
+        <h1>Category List</h1>
+      </div>
+      <div class="row">
+        {/* <FormControl sx={{ display: "inline", margin: ".5rem 0" }}> */}
+        <Icon sx={{ fontSize: 50 }} onClick={() => navigate("/categories/new")}>
+          add_circle
+        </Icon>
+        {/* </FormControl> */}
+      </div>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead

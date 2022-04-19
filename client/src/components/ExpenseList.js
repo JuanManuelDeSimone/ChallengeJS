@@ -18,6 +18,7 @@ import { useNavigate } from 'react-router-dom'
 import EditIcon from "@mui/icons-material/Edit"
 import Fab from "@mui/material/Fab"
 import DeleteIcon from "@mui/icons-material/Delete"
+import { useAuth0 } from '@auth0/auth0-react'
 
 
 export default function ExpenseList() {
@@ -27,9 +28,11 @@ export default function ExpenseList() {
   const [categories, setCategories] = useState([])
   const [first, setFirst] = useState(true)
   const navigate = useNavigate()
+  const { user } = useAuth0()
 
   const loadExpenses = async ()=> {
-    const response = await fetch('http://localhost:4000/expenses');
+    //const response = await fetch('http://localhost:4000/expenses');
+    const response = await fetch(`http://localhost:4000/expenses/all/${user.email}`);
     const data = await response.json()
     setExpenses(data)
     //if(first){
@@ -41,7 +44,7 @@ export default function ExpenseList() {
   }
   
   const loadExpensesbyCategory = async (id)=> { 
-    const response = await fetch(`http://localhost:4000/expenses/expensesbycategory/${id}`);
+    const response = await fetch(`http://localhost:4000/expenses/expensesbycategory/${id}/${user.email}`);
     const data = await response.json()
     setExpenses(data)
   }  

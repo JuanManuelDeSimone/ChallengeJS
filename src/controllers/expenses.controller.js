@@ -2,7 +2,8 @@ const pool = require('../db');
 
 const getAllExpenses = async (req, res) => {
   try {
-    const allExpenses = await pool.query('select * from expense order by id desc');
+    const {usermail} = req.params;
+    const allExpenses = await pool.query('select * from expense where usermail = $1 order by id desc', [usermail]);
     res.json(allExpenses.rows);
   } catch (error) {
     console.log(error);
@@ -10,8 +11,8 @@ const getAllExpenses = async (req, res) => {
 }
 const getExpenseByCategory = async (req, res) => {
   try {
-    const { id } = req.params;
-    const expense = await pool.query('select * from expense where category_id = $1', [id]);
+    const { id, usermail} = req.params;
+    const expense = await pool.query('select * from expense where category_id = $1 and usermail=$2', [id,usermail]);
     res.json(expense.rows);
   } catch (error) {
     console.log(error);
@@ -33,10 +34,10 @@ const getExpense = async (req, res) => {
 }
 
 const createExpense = async (req, res) => {
-  const { concept, category_id, amount, expensetype } = req.body;
+  const { concept, category_id, amount, expensetype, usermail } = req.body;
   try {
     const expensedate = new Date();
-    const result = await pool.query('insert into expense (concept,category_id, amount, expensedate, expensetype) values($1,$2,$3,$4,$5) returning *', [concept, category_id, amount, expensedate, expensetype]);
+    const result = await pool.query('insert into expense (concept,category_id, amount, expensedate, expensetype, usermail) values($1,$2,$3,$4,$5,$6) returning *', [concept, category_id, amount, expensedate, expensetype,usermail]);
     res.json(result.rows[0])
   } catch (error) {
     console.log(error);
