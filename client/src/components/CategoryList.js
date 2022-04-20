@@ -16,7 +16,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 export default function CategoryList() {
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
-
+  
   const loadCategories = async () => {
     const response = await fetch("http://localhost:4000/categories");
     const data = await response.json();
@@ -25,10 +25,15 @@ export default function CategoryList() {
 
   const handleDelete = async (id) => {
     try {
+      const response = await fetch(`http://localhost:4000/expenses/expensesbycategory/${id}`);
+      console.log(response);
+      if(response.status !== 200){
       await fetch(`http://localhost:4000/categories/${id}`, {
         method: "DELETE",
       });
-      setCategories(categories.filter((category) => category.id !== id));
+      setCategories(categories.filter((category) => category.id !== id));}else{
+        console.log("There are expenses associated with this category");
+      }
     } catch (error) {
       console.log(error);
     }

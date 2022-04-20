@@ -13,7 +13,7 @@ const {
 //router.get('/expenses', getAllExpenses);
 router.get("/expenses/all/:usermail", getAllExpenses);
 router.get('/expenses/:id', getExpense);
-router.get('/expenses/expensesbycategory/:id/:usermail', getExpenseByCategory);
+router.get('/expenses/expensesbycategory/:id', getExpenseByCategory);
 router.put('/expenses/:id/edit', editExpense);
 router.delete('/expenses/:id', deleteExpense);
 router.post('/expenses', createExpense);

@@ -11,8 +11,13 @@ const getAllExpenses = async (req, res) => {
 }
 const getExpenseByCategory = async (req, res) => {
   try {
-    const { id, usermail} = req.params;
-    const expense = await pool.query('select * from expense where category_id = $1 and usermail=$2', [id,usermail]);
+    const { id } = req.params;
+    const expense = await pool.query('select * from expense where category_id = $1', [id]);
+    if (expense.rowCount === 0) {
+      return res.status(404).json({
+        message: "Expense not found",
+      });
+    }
     res.json(expense.rows);
   } catch (error) {
     console.log(error);

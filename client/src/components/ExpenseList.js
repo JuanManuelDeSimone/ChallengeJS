@@ -31,22 +31,27 @@ export default function ExpenseList() {
   const { user } = useAuth0()
 
   const loadExpenses = async ()=> {
-    //const response = await fetch('http://localhost:4000/expenses');
-    const response = await fetch(`http://localhost:4000/expenses/all/${user.email}`);
-    const data = await response.json()
-    setExpenses(data)
-    //if(first){
-    const response2 = await fetch('http://localhost:4000/categories');
-    const data2 = await response2.json()
-    setCategories(data2)
-    setFirst(false)
-    //}
-  }
+    try {
+      const response = await fetch(`http://localhost:4000/expenses/all/${user.email}`);
+      const data = await response.json()
+      setExpenses(data)
+      const response2 = await fetch('http://localhost:4000/categories');
+      const data2 = await response2.json()
+      setCategories(data2)
+      setFirst(false)      
+    } catch (error) {
+      console.log(error)
+    }}
   
   const loadExpensesbyCategory = async (id)=> { 
-    const response = await fetch(`http://localhost:4000/expenses/expensesbycategory/${id}/${user.email}`);
-    const data = await response.json()
-    setExpenses(data)
+    try {
+      const response = await fetch(`http://localhost:4000/expenses/expensesbycategory/${id}`);
+      const data = await response.json();
+      setExpenses(data.filter((exp) => exp.usermail === user.email));
+    } catch (error) {
+      console.log(error);
+    }
+
   }  
 
   const handleDelete = async (id) =>{
