@@ -50,7 +50,11 @@ export default function CategoryList() {
       </div>
       <div class="row">
         {/* <FormControl sx={{ display: "inline", margin: ".5rem 0" }}> */}
-        <Icon sx={{ fontSize: 50 }} onClick={() => navigate("/categories/new")}>
+        <Icon
+          sx={{ fontSize: 50 }}
+          style={{ float: "right" }}
+          onClick={() => navigate("/categories/new")}
+        >
           add_circle
         </Icon>
         {/* </FormControl> */}

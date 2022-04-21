@@ -83,7 +83,12 @@ export default function ExpenseList() {
     <>
       <h1>
         Expense List
-        <FormControl sx={{ display: "block", margin: ".5rem 0" }}>
+        <FormControl
+          sx={{
+            display: "block",
+            margin: ".5rem 0",
+          }}
+        >
           <InputLabel
             id="demo-simple-select-label"
             sx={{ display: "block", margin: ".5rem 0" }}
@@ -113,6 +118,7 @@ export default function ExpenseList() {
           </Select>
           <Icon
             sx={{ fontSize: 50, flexGrow: 1 }}
+            style={{float: "right"}}
             onClick={() => navigate("/expenses/new")}
           >
             add_circle
