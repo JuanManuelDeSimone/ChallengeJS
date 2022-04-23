@@ -16,7 +16,9 @@
     "express": "^4.17.3",
     "github": "^14.0.0",
     "morgan": "^1.10.0",
-    "pg": "^8.7.3"
+    "pg": "^8.7.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.19.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

@@ -1,4 +1,5 @@
 const pool = require('../db');
+//const { sequelize } = require("./database/database");
 
 const getAllExpenses = async (req, res) => {
   try {

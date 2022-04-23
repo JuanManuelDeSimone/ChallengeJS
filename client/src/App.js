@@ -21,8 +21,8 @@ export default function App() {
   }
   
   return (    
-      <BrowserRouter>
-        <NavBar />
+    <BrowserRouter>
+      <NavBar />
         <Container>
           <Routes>
             <Route path="/" element={<CurrentBalance />} />
