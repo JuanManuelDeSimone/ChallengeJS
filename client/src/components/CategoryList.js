@@ -25,15 +25,16 @@ export default function CategoryList() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:4000/expenses/expensesbycategory/${id}`);
-      console.log(response);
-      if(response.status !== 200){
+      // const response = await fetch(`http://localhost:4000/expenses/expensesbycategory/${id}`);
+      // console.log(response);
+      // if(response.status !== 200){
       await fetch(`http://localhost:4000/categories/${id}`, {
         method: "DELETE",
       });
-      setCategories(categories.filter((category) => category.id !== id));}else{
-        console.log("There are expenses associated with this category");
-      }
+      setCategories(categories.filter((category) => category.id !== id));
+    //}else{
+      //   console.log("There are expenses associated with this category");
+      // }
     } catch (error) {
       console.log(error);
     }
@@ -48,7 +49,7 @@ export default function CategoryList() {
       <div>
         <h1>Category List</h1>
       </div>
-      <div class="row">
+      <div className="row">
         {/* <FormControl sx={{ display: "inline", margin: ".5rem 0" }}> */}
         <Icon
           sx={{ fontSize: 50 }}

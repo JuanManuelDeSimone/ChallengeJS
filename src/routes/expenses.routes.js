@@ -1,6 +1,5 @@
 const { Router } = require('express');
 const router = Router();
-const pool = require('../db');
 const {
   getAllExpenses,
   getExpense,
@@ -10,7 +9,6 @@ const {
   getExpenseByCategory
 } = require("../controllers/expenses.controller");
 
-//router.get('/expenses', getAllExpenses);
 router.get("/expenses/all/:usermail", getAllExpenses);
 router.get('/expenses/:id', getExpense);
 router.get('/expenses/expensesbycategory/:id', getExpenseByCategory);

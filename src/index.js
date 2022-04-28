@@ -5,6 +5,8 @@ const morgan = require('morgan');
 const cors = require('cors');
 const expensesRoutes = require('./routes/expenses.routes');
 const categoriesRoutes = require('./routes/categories.routes');
+const { Expense } = require('./models/Expense');
+const { Category } = require('./models/Category');
 
 app.use(morgan('dev'));
 app.use(cors());
@@ -12,9 +14,10 @@ app.use(express.json());
 app.use(expensesRoutes);
 app.use(categoriesRoutes);
 
+
 async function main() {
     try {
-      await sequelize.authenticate();
+      await sequelize.sync({force: false});
       console.log("Connection has been established successfully.");
       app.listen(4000);
       console.log("Listening on port 4000");

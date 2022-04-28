@@ -30,7 +30,7 @@ export default function CurrentBalance() {
   return (
     <>
       <Card style={{ marginBottom: ".7rem", backgroundColor: "#1e272e" }}>
-        <div style={{ color: "white"}} >Current Balance: {curBalance}</div>
+        <div style={{ color: "white" }}>Current Balance: {curBalance}</div>
       </Card>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -52,17 +52,19 @@ export default function CurrentBalance() {
                 key={expense.id}
               >
                 <TableCell>{expense.concept}</TableCell>
-                <TableCell>
-                  {categories.map(
-                    (category) =>
-                      expense.category_id === category.id && (
-                        <TableCell align="left"> {category.name} </TableCell>
-                      )
-                  )}
-                </TableCell>
+                {/* <TableCell> */}
+                {categories.map(
+                  (category) =>
+                    expense.category_id === category.id && (
+                      <TableCell key={category.id} align="left">
+                        {category.name}
+                      </TableCell>
+                    )
+                )}
+                {/* </TableCell> */}
                 <TableCell>{expense.amount}</TableCell>
                 <TableCell>
-                  {expense.expensetype === "1" ? "Income" : "Expense"}
+                  {expense.expensetype === 1 ? "Income" : "Expense"}
                 </TableCell>
                 <TableCell>
                   {new Date(expense.expensedate).toLocaleDateString()}

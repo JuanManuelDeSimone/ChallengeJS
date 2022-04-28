@@ -14,10 +14,8 @@ import {
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-export default function ExpenseForm() {
-  const [category, setCategory] = useState({
-    name: ""
-  });
+export default function CategoryForm() {
+  const [category, setCategory] = useState([]);
   const [loading, setLoading] = useState(false);
   const [editing, setEditing] = useState(false);
   const [types, settypes] = useState([1, -1]);
@@ -54,9 +52,7 @@ export default function ExpenseForm() {
   const loadCategory = async (id) => {
     const res = await fetch(`http://localhost:4000/categories/${id}`);
     const data = await res.json();
-    setCategory({
-      name: data.name
-    });
+    setCategory(data[0]);
     setEditing(true);
   };
 
@@ -73,7 +69,7 @@ export default function ExpenseForm() {
       alignItems="center"
       justifyContent="center"
     >
-      <Grid xs={3}>
+      <Grid item={true} xs={3}>
         <Card
           sx={{ mt: 5 }}
           style={{ backgroundColor: "#1e272e", padding: "1 rem" }}
@@ -91,13 +87,13 @@ export default function ExpenseForm() {
                 value={category.name}
                 onChange={handleChange}
                 inputProps={{ style: { color: "white" } }}
-                InputLabelProps={{ style: { color: "white" } }}
               />
               <Button
                 variant="contained"
                 color="primary"
                 type="submit"
-                disabled={!category.name}>
+                disabled={!category.name}
+              >
                 {loading ? (
                   <CircularProgress color="inherit" size={24} />
                 ) : (

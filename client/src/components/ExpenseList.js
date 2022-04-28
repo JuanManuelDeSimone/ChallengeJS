@@ -34,10 +34,13 @@ export default function ExpenseList() {
     try {
       const response = await fetch(`http://localhost:4000/expenses/all/${user.email}`);
       const data = await response.json()
+      console.log(data)
       setExpenses(data)
+      console.log(expenses)
       const response2 = await fetch('http://localhost:4000/categories');
       const data2 = await response2.json()
       setCategories(data2)
+      console.log(categories)
       setFirst(false)      
     } catch (error) {
       console.log(error)
@@ -101,7 +104,6 @@ export default function ExpenseList() {
             value={category}
             label="Category"
             inputProps={{ style: { color: "white" } }}
-            InputLabelProps={{ style: { color: "white" } }}
             autoWidth
             onChange={handlechange}
           >
@@ -151,12 +153,12 @@ export default function ExpenseList() {
                 {categories.map(
                   (category) =>
                     expense.category_id === category.id && (
-                      <TableCell align="left"> {category.name} </TableCell>
+                      <TableCell key={category.id} align="left"> {category.name} </TableCell>
                     )
                 )}
                 <TableCell align="left">{expense.amount}</TableCell>
                 <TableCell align="left">
-                  {expense.expensetype === "1" ? "Income" : "Expense"}
+                  {expense.expensetype === 1 ? "Income" : "Expense"}
                 </TableCell>
                 <TableCell>
                   <Fab size="medium" aria-label="edit">

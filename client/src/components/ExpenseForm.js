@@ -13,22 +13,21 @@ import {
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAuth0 } from '@auth0/auth0-react'
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function ExpenseForm() {
-  const { user} = useAuth0();
+  const { user } = useAuth0();
   const [expense, setExpense] = useState({
     concept: "",
     category_id: 0,
     amount: 0,
     expensetype: 0,
-    usermail: user.email
+    usermail: user.email,
   });
-  const [categories, setCategories] = useState([]);  
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [editing, setEditing] = useState(false);
-  const [types, settypes] = useState([1,-1]);
-
+  const [types, settypes] = useState([1, -1]);
 
   const handleChange = (e) => {
     setExpense({ ...expense, [e.target.name]: e.target.value });
@@ -46,13 +45,13 @@ export default function ExpenseForm() {
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify(expense)
+        body: JSON.stringify(expense),
       });
     } else {
       await fetch("http://localhost:4000/expenses", {
         method: "POST",
         body: JSON.stringify(expense),
-        headers: { "content-type": "application/json" }
+        headers: { "content-type": "application/json" },
       });
     }
     setLoading(false);
@@ -62,13 +61,15 @@ export default function ExpenseForm() {
   const loadExpense = async (id) => {
     const res = await fetch(`http://localhost:4000/expenses/${id}`);
     const data = await res.json();
+    console.log(data[0].concept);
     setExpense({
-      concept: data.concept,
-      category_id: data.category_id,
-      amount: data.amount,
-      expensetype: data.expensetype,
-      usermail: data.usermail
+      concept: data[0].concept,
+      category_id: data[0].category_id,
+      amount: data[0].amount,
+      expensetype: data[0].expensetype,
+      usermail: data[0].usermail,
     });
+    console.log(expense)
     loadCategories();
     setEditing(true);
   };
@@ -81,10 +82,10 @@ export default function ExpenseForm() {
   useEffect(() => {
     if (params.id) {
       loadExpense(params.id);
-    }else{
+    } else {
       loadCategories();
     }
-  }, [params.id]);  //este segundo parámetro es para que no se ejecute la función cada vez que se renderice el componente, sino que se ejecute solo cuando el parámetro cambie
+  }, [params.id]); //este segundo parámetro es para que no se ejecute la función cada vez que se renderice el componente, sino que se ejecute solo cuando el parámetro cambie
 
   return (
     <Grid
@@ -93,7 +94,7 @@ export default function ExpenseForm() {
       alignItems="center"
       justifyContent="center"
     >
-      <Grid xs={3}>
+      <Grid item={true} xs={3}>
         <Card
           sx={{ mt: 5 }}
           style={{ backgroundColor: "#1e272e", padding: "1 rem" }}
@@ -111,7 +112,6 @@ export default function ExpenseForm() {
                 value={expense.concept}
                 onChange={handleChange}
                 inputProps={{ style: { color: "white" } }}
-                InputLabelProps={{ style: { color: "white" } }}
               />
               <FormControl fullWidth>
                 <InputLabel
@@ -127,7 +127,6 @@ export default function ExpenseForm() {
                   value={expense.category_id}
                   label="Category"
                   inputProps={{ style: { color: "white" } }}
-                  InputLabelProps={{ style: { color: "white" } }}
                   onChange={handleChange}
                 >
                   {categories.map((category) => (
@@ -145,7 +144,6 @@ export default function ExpenseForm() {
                 value={expense.amount}
                 onChange={handleChange}
                 inputProps={{ style: { color: "white" } }}
-                InputLabelProps={{ style: { color: "white" } }}
               />
               <FormControl fullWidth>
                 <InputLabel
@@ -161,7 +159,6 @@ export default function ExpenseForm() {
                   value={expense.expensetype}
                   label="Type"
                   inputProps={{ style: { color: "white" } }}
-                  InputLabelProps={{ style: { color: "white" } }}
                   disabled={editing}
                   onChange={handleChange}
                 >

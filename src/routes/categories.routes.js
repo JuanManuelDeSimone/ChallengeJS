@@ -1,6 +1,5 @@
 const { Router } = require("express");
 const router = Router();
-const pool = require("../db");
 const {getAllCategories, getCategory, editCategory, deleteCategory, createCategory,} = require("../controllers/categories.controller");
 
 router.get("/categories", getAllCategories);
