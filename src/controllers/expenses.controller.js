@@ -43,10 +43,12 @@ const getExpenseByCategory = async (req, res) => {
 const getExpense = async (req, res) => {
   
   try {
+    const { usermail } = req.params;
     const { id } = req.params;
     const result = await Expense.findAll({
       where: {
-        id
+        id,
+        usermail
       }
     });
     //const result = await pool.query('select * from expenses where id=$1', [id]);
@@ -55,7 +57,7 @@ const getExpense = async (req, res) => {
         message: "Expense not found",
       });
     }
-    res.json(result);
+    res.json(result[0]);
   } catch (error) {
     console.log(error);
   }

@@ -27,7 +27,7 @@ const getCategory = async (req, res) => {
       });
     }
     //res.json(result.rows[0]);
-    res.json(result);
+    res.json(result[0]);
   } catch (error) {
     console.log(error);
   }

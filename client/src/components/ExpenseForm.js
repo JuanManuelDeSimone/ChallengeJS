@@ -59,15 +59,14 @@ export default function ExpenseForm() {
   };
 
   const loadExpense = async (id) => {
-    const res = await fetch(`http://localhost:4000/expenses/${id}`);
+    const res = await fetch(`http://localhost:4000/expenses/${id}/${user.email}`);
     const data = await res.json();
-    console.log(data[0].concept);
     setExpense({
-      concept: data[0].concept,
-      category_id: data[0].category_id,
-      amount: data[0].amount,
-      expensetype: data[0].expensetype,
-      usermail: data[0].usermail,
+      concept: data.concept,
+      category_id: data.category_id,
+      amount: data.amount,
+      expensetype: data.expensetype,
+      usermail: data.usermail,
     });
     console.log(expense)
     loadCategories();

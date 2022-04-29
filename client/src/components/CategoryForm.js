@@ -52,7 +52,7 @@ export default function CategoryForm() {
   const loadCategory = async (id) => {
     const res = await fetch(`http://localhost:4000/categories/${id}`);
     const data = await res.json();
-    setCategory(data[0]);
+    setCategory(data);
     setEditing(true);
   };
 

@@ -10,7 +10,7 @@ const {
 } = require("../controllers/expenses.controller");
 
 router.get("/expenses/all/:usermail", getAllExpenses);
-router.get('/expenses/:id', getExpense);
+router.get('/expenses/:id/:usermail', getExpense);
 router.get('/expenses/expensesbycategory/:id', getExpenseByCategory);
 router.put('/expenses/:id/edit', editExpense);
 router.delete('/expenses/:id', deleteExpense);
